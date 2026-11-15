@@ -7,7 +7,7 @@ databases:
 services:
   # Backend API (FastAPI)
   - type: web
-    name: arshab-api
+    name: arshab-api-arun110908
     runtime: python
     rootDir: backend
     plan: free
@@ -29,11 +29,11 @@ services:
       - key: COOKIE_SECURE
         value: "true"
       - key: CORS_ORIGINS
-        value: https://arshab.onrender.com
+        value: https://arshab-arun110908.onrender.com
 
   # Frontend (React static site)
   - type: web
-    name: arshab
+    name: arshab-arun110908
     runtime: static
     rootDir: frontend
     buildCommand: npm ci && npm run build
@@ -42,7 +42,7 @@ services:
       # Proxy API calls through the same origin: no CORS or cross-site cookie problems.
       - type: rewrite
         source: /api/*
-        destination: https://arshab-api.onrender.com/api/*
+        destination: https://arshab-api-arun110908.onrender.com/api/*
       - type: rewrite
         source: /*
         destination: /index.html
