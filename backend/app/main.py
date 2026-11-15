@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
-from .api import auth, learn
+from .api import learn
 from .core.config import settings
 from .core.db import Base, engine
 
@@ -22,7 +22,6 @@ app.add_middleware(
     CORSMiddleware, allow_origins=settings.cors_list, allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE"], allow_headers=["Authorization", "Content-Type"],
 )
-app.include_router(auth.router)
 app.include_router(learn.router)
 
 

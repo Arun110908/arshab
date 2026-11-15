@@ -25,10 +25,3 @@ def client():
         db.commit()
     with TestClient(app) as c:
         yield c
-
-
-@pytest.fixture()
-def auth(client):
-    r = client.post("/api/auth/register",
-                    json={"email": "a@b.com", "name": "A", "password": "supersecret1"})
-    return {"Authorization": f"Bearer {r.json()['access_token']}"}

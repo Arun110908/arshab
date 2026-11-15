@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { api, DashboardSummary } from "../lib/api";
-import { useAuth } from "../auth/AuthContext";
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
@@ -21,7 +20,6 @@ export function Bar({ percent, label }: { percent: number; label: string }) {
 }
 
 export default function Dashboard() {
-  const { user } = useAuth();
   const [data, setData] = useState<DashboardSummary | null>(null);
   const [error, setError] = useState("");
 
@@ -34,7 +32,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Welcome, {user?.name}</h1>
+      <h1 className="text-2xl font-bold">Welcome back</h1>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Overall progress" value={`${data.overall_percent}%`} />
         <Stat label="Lessons completed" value={`${data.lessons_completed} / ${data.lessons_total}`} />
