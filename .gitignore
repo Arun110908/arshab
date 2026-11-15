@@ -8,3 +8,4 @@ dist/
 *.db
 .pytest_cache/
 .DS_Store
+*.tsbuildinfo
