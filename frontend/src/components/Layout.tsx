@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
+import { NavLink, Outlet } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 
 const link = ({ isActive }: { isActive: boolean }) =>
@@ -10,11 +9,7 @@ const link = ({ isActive }: { isActive: boolean }) =>
 const soon = ["Playground", "Quizzes", "Projects", "Ask ARSHA"];
 
 export default function Layout() {
-  const { user, logout } = useAuth();
-  const nav = useNavigate();
   const [open, setOpen] = useState(false);
-
-  const out = async () => { await logout(); nav("/login"); };
 
   return (
     <div className="min-h-screen lg:flex">
@@ -35,11 +30,7 @@ export default function Layout() {
         <header className="flex items-center justify-between border-b border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900">
           <button className="rounded-lg border px-2 py-1 text-sm dark:border-slate-700 lg:hidden"
             onClick={() => setOpen(!open)} aria-label="Toggle menu">☰</button>
-          <div className="ml-auto flex items-center gap-3">
-            <span className="hidden text-sm text-slate-600 dark:text-slate-300 sm:inline">{user?.name}</span>
-            <ThemeToggle />
-            <button onClick={out} className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs dark:border-slate-700">Log out</button>
-          </div>
+          <div className="ml-auto"><ThemeToggle /></div>
         </header>
         <main className="mx-auto max-w-5xl p-4 sm:p-8"><Outlet /></main>
       </div>

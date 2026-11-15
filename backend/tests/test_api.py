@@ -46,3 +46,14 @@ def test_topic_and_lesson_endpoints(client, auth):
     l = client.get("/api/lessons/1", headers=auth).json()
     assert l["title"] == "Intro" and l["completed"] is False and l["next_lesson_id"] is None
     assert client.get("/api/lessons/999", headers=auth).status_code == 404
+
+
+def test_guest_session_without_login(client):
+    r = client.post("/api/auth/guest")
+    assert r.status_code == 201
+    h = {"Authorization": "Bearer " + r.json()["access_token"]}
+    assert client.get("/api/auth/me", headers=h).json()["name"] == "Learner"
+    assert client.get("/api/dashboard/summary", headers=h).status_code == 200
+    again = client.post("/api/auth/refresh")  # the refresh cookie restores the same guest
+    assert again.status_code == 200
+    assert again.json()["user"]["id"] == r.json()["user"]["id"]

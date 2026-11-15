@@ -14,7 +14,7 @@ class LoginIn(BaseModel):
 
 class UserOut(BaseModel):
     id: int
-    email: EmailStr
+    email: str
     name: str
     role: str
     model_config = {"from_attributes": True}

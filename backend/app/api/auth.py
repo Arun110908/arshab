@@ -1,3 +1,5 @@
+import secrets
+import uuid
 from typing import Optional
 
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
@@ -65,3 +67,16 @@ def logout(resp: Response):
 @router.get("/me", response_model=UserOut)
 def me(user: User = Depends(current_user)):
     return user
+
+
+@router.post("/guest", response_model=TokenOut, status_code=201)
+def guest(resp: Response, db: Session = Depends(get_db)):
+    """Anonymous learner account, so the site works without a login screen."""
+    user = User(
+        email="guest-%s@guest.arshab.app" % uuid.uuid4().hex,
+        name="Learner",
+        password_hash=hash_password(secrets.token_urlsafe(32)),
+    )
+    db.add(user)
+    db.commit()
+    return _issue(resp, user)

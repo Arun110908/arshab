@@ -1,12 +1,10 @@
-import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react";
-import { post, setAccessToken, tryRefresh, TokenOut, User } from "../lib/api";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { ensureSession, User } from "../lib/api";
 
 interface AuthState {
   user: User | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  error: string;
 }
 
 const Ctx = createContext<AuthState | null>(null);
@@ -14,28 +12,17 @@ const Ctx = createContext<AuthState | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  // Restore the session from the httpOnly refresh cookie on page load.
+  // No login screen: restore the saved session or start a guest session automatically.
   useEffect(() => {
-    tryRefresh()
-      .then((d) => setUser(d?.user ?? null))
-      .catch(() => setUser(null))
+    ensureSession()
+      .then((d) => setUser(d.user))
+      .catch(() => setError("Could not reach the server. Please wait a minute and refresh."))
       .finally(() => setLoading(false));
   }, []);
 
-  const apply = (d: TokenOut) => { setAccessToken(d.access_token); setUser(d.user); };
-
-  const login = useCallback(async (email: string, password: string) => {
-    apply(await post<TokenOut>("/api/auth/login", { email, password }));
-  }, []);
-  const register = useCallback(async (name: string, email: string, password: string) => {
-    apply(await post<TokenOut>("/api/auth/register", { name, email, password }));
-  }, []);
-  const logout = useCallback(async () => {
-    try { await post("/api/auth/logout"); } finally { setAccessToken(null); setUser(null); }
-  }, []);
-
-  return <Ctx.Provider value={{ user, loading, login, register, logout }}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{ user, loading, error }}>{children}</Ctx.Provider>;
 }
 
 export function useAuth(): AuthState {

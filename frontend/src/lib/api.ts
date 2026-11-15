@@ -40,7 +40,9 @@ export async function tryRefresh(): Promise<TokenOut | null> {
 /** Authenticated request; on 401 it refreshes the session once and retries. */
 export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
   let res = await raw(path, init);
-  if (res.status === 401 && !path.startsWith("/api/auth/") && (await tryRefresh())) res = await raw(path, init);
+  if (res.status === 401 && !path.startsWith("/api/auth/")) {
+    try { await ensureSession(); res = await raw(path, init); } catch { /* keep the 401 */ }
+  }
   return parse<T>(res);
 }
 
@@ -70,4 +72,22 @@ export interface LessonContent {
 export interface LessonDetail {
   id: number; title: string; topic_id: number; topic_title: string; completed: boolean;
   next_lesson_id: number | null; content: LessonContent;
+}
+
+export async function createGuest(): Promise<TokenOut> {
+  const data = await parse<TokenOut>(await raw("/api/auth/guest", { method: "POST" }));
+  accessToken = data.access_token;
+  return data;
+}
+
+let pendingSession: Promise<TokenOut> | null = null;
+
+/** Restore the saved session, or silently start a new guest session. */
+export function ensureSession(): Promise<TokenOut> {
+  if (!pendingSession) {
+    pendingSession = (async () => (await tryRefresh()) ?? (await createGuest()))().finally(() => {
+      pendingSession = null;
+    });
+  }
+  return pendingSession;
 }

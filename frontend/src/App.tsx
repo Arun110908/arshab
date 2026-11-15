@@ -1,6 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
 import Learn from "./pages/Learn";
 import Lesson from "./pages/Lesson";
@@ -9,8 +8,8 @@ import Topic from "./pages/Topic";
 export default function App() {
   return (
     <Routes>
-      <Route path="/login" element={<AuthPage mode="login" />} />
-      <Route path="/register" element={<AuthPage mode="register" />} />
+      <Route path="/login" element={<Navigate to="/" replace />} />
+      <Route path="/register" element={<Navigate to="/" replace />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/learn" element={<Learn />} />
