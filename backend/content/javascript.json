@@ -1,0 +1,223 @@
+{
+  "slug": "javascript",
+  "title": "JavaScript Mastery",
+  "topics": [
+    {
+      "slug": "intro",
+      "title": "Getting Started",
+      "level": 1,
+      "requires": [],
+      "lessons": [
+        {
+          "title": "What is JavaScript? Your first program",
+          "content": {
+            "language": "javascript",
+            "explanation": "JavaScript is the language of the web. It runs in every browser and, with Node.js, on servers too. Programming means giving the computer precise step-by-step instructions. console.log() prints a value so you can see what your program is doing.",
+            "syntax": "console.log(\"text to show\");",
+            "examples": [
+              {
+                "title": "Hello world",
+                "code": "console.log(\"Hello, ARSHAB!\");",
+                "output": "Hello, ARSHAB!"
+              },
+              {
+                "title": "Lines run top to bottom",
+                "code": "console.log(\"Step 1\");\nconsole.log(\"Step 2\");",
+                "output": "Step 1\nStep 2"
+              }
+            ],
+            "exercises": [
+              {
+                "prompt": "Print your name and your city on separate lines.",
+                "hint": "Use two console.log calls."
+              },
+              {
+                "prompt": "Print a sentence that contains double quotes.",
+                "hint": "Wrap it in single quotes or use backticks."
+              }
+            ],
+            "common_mistakes": [
+              "Writing Console.log. JavaScript is case-sensitive.",
+              "Missing quotes around text.",
+              "Forgetting a closing bracket."
+            ],
+            "interview_questions": [
+              {
+                "q": "Where does JavaScript run?",
+                "a": "In browsers (via a JS engine like V8) and on servers with Node.js."
+              },
+              {
+                "q": "Is JavaScript the same as Java?",
+                "a": "No. They are different languages with different designs."
+              }
+            ],
+            "real_world": "console.log is the first debugging tool every web developer uses, in browser DevTools and in Node."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "variables",
+      "title": "Variables & Data Types",
+      "level": 1,
+      "requires": [
+        "intro"
+      ],
+      "lessons": [
+        {
+          "title": "Variables: let and const",
+          "content": {
+            "language": "javascript",
+            "explanation": "Variables store values. Use const for values that will not be reassigned and let for values that will change. Avoid var in new code. Names use camelCase, like studentName.",
+            "syntax": "const name = value;\nlet counter = 0;",
+            "examples": [
+              {
+                "title": "const and let",
+                "code": "const name = \"Arun\";\nlet score = 10;\nscore = score + 5;\nconsole.log(name, score);",
+                "output": "Arun 15"
+              },
+              {
+                "title": "const cannot be reassigned",
+                "code": "const x = 1;\n// x = 2;  // TypeError: Assignment to constant variable",
+                "output": "(error if uncommented)"
+              }
+            ],
+            "exercises": [
+              {
+                "prompt": "Store your age in a variable and log a sentence with it.",
+                "hint": "Use a template string: `I am ${age}`."
+              },
+              {
+                "prompt": "Swap two variables using a temporary variable.",
+                "hint": "Use let for both."
+              }
+            ],
+            "common_mistakes": [
+              "Reassigning a const.",
+              "Using a variable before declaring it.",
+              "Using = when you mean === in comparisons."
+            ],
+            "interview_questions": [
+              {
+                "q": "Difference between let, const and var?",
+                "a": "let and const are block-scoped. const cannot be reassigned. var is function-scoped and hoisted, so it is best avoided."
+              },
+              {
+                "q": "Does const make an object immutable?",
+                "a": "No. The binding cannot change, but the object's contents can."
+              }
+            ],
+            "real_world": "Shopping cart totals, logged-in user info and UI state are all variables."
+          }
+        },
+        {
+          "title": "Data types and operators",
+          "content": {
+            "language": "javascript",
+            "explanation": "Primitive types: number, string, boolean, undefined, null (plus bigint and symbol). Use typeof to inspect a value. Operators: + - * / % **. Always compare with === (strict equality). Convert text to a number with Number().",
+            "syntax": "typeof value\nNumber(\"5\")",
+            "examples": [
+              {
+                "title": "typeof",
+                "code": "console.log(typeof 5, typeof \"5\", typeof true, typeof undefined);",
+                "output": "number string boolean undefined"
+              },
+              {
+                "title": "Strict vs loose equality",
+                "code": "console.log(5 === \"5\", 5 == \"5\");",
+                "output": "false true"
+              },
+              {
+                "title": "Quirk",
+                "code": "console.log(0.1 + 0.2);",
+                "output": "0.30000000000000004"
+              }
+            ],
+            "exercises": [
+              {
+                "prompt": "Convert the string \"42\" to a number and add 8.",
+                "hint": "Use Number()."
+              },
+              {
+                "prompt": "Convert 250 minutes into hours and minutes.",
+                "hint": "Use Math.floor and %."
+              }
+            ],
+            "common_mistakes": [
+              "Adding a string and a number: \"5\" + 3 gives \"53\".",
+              "Using == and getting surprising coercion.",
+              "Assuming typeof null is 'null' (it is 'object', a historic quirk)."
+            ],
+            "interview_questions": [
+              {
+                "q": "Why prefer === over ==?",
+                "a": "=== does not coerce types, so results are predictable."
+              },
+              {
+                "q": "What is the difference between null and undefined?",
+                "a": "undefined means no value was assigned. null is an intentional empty value."
+              }
+            ],
+            "real_world": "Form inputs arrive as strings, so converting types correctly is a daily task in web development."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "conditions",
+      "title": "Making Decisions",
+      "level": 1,
+      "requires": [
+        "variables"
+      ],
+      "lessons": [
+        {
+          "title": "if, else if and else",
+          "content": {
+            "language": "javascript",
+            "explanation": "Conditions let the program choose a path. JavaScript runs the first block whose condition is truthy. Combine conditions with && (and), || (or), ! (not). Falsy values: false, 0, empty string, null, undefined, NaN.",
+            "syntax": "if (condition) {\n  ...\n} else if (other) {\n  ...\n} else {\n  ...\n}",
+            "examples": [
+              {
+                "title": "Grade",
+                "code": "const marks = 72;\nif (marks >= 90) console.log(\"A\");\nelse if (marks >= 60) console.log(\"B\");\nelse console.log(\"C\");",
+                "output": "B"
+              },
+              {
+                "title": "Combine",
+                "code": "const age = 20, hasId = true;\nif (age >= 18 && hasId) console.log(\"Allowed\");",
+                "output": "Allowed"
+              }
+            ],
+            "exercises": [
+              {
+                "prompt": "Print whether a number is positive, negative or zero.",
+                "hint": "Use if / else if / else."
+              },
+              {
+                "prompt": "Check if a year is a leap year.",
+                "hint": "Divisible by 4, except centuries unless divisible by 400."
+              }
+            ],
+            "common_mistakes": [
+              "Using = instead of === in the condition.",
+              "Forgetting the brackets around the condition.",
+              "Forgetting that an empty string or 0 is falsy."
+            ],
+            "interview_questions": [
+              {
+                "q": "What is a truthy value?",
+                "a": "Any value that is not falsy, for example non-empty strings and non-zero numbers."
+              },
+              {
+                "q": "What is the ternary operator?",
+                "a": "condition ? a : b, a short if/else that returns a value."
+              }
+            ],
+            "real_world": "Login checks, feature flags, discounts and form validation all depend on conditions."
+          }
+        }
+      ]
+    }
+  ]
+}

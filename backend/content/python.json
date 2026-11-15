@@ -1,0 +1,223 @@
+{
+  "slug": "python",
+  "title": "Python Mastery",
+  "topics": [
+    {
+      "slug": "intro",
+      "title": "Getting Started",
+      "level": 1,
+      "requires": [],
+      "lessons": [
+        {
+          "title": "What is programming? Your first Python program",
+          "content": {
+            "language": "python",
+            "explanation": "Programming means giving a computer clear, step-by-step instructions. A computer does exactly what you write, nothing more, so precision matters. Python is a beginner-friendly language whose code reads almost like English. Your first instruction is print(), which shows text on the screen.",
+            "syntax": "print(\"text to show\")",
+            "examples": [
+              {
+                "title": "Hello world",
+                "code": "print(\"Hello, ARSHAB!\")",
+                "output": "Hello, ARSHAB!"
+              },
+              {
+                "title": "Several lines run top to bottom",
+                "code": "print(\"Step 1\")\nprint(\"Step 2\")",
+                "output": "Step 1\nStep 2"
+              }
+            ],
+            "exercises": [
+              {
+                "prompt": "Print your name on one line and your city on the next line.",
+                "hint": "Use two print() calls."
+              },
+              {
+                "prompt": "Print a sentence that contains double quotes inside it.",
+                "hint": "Wrap the text in single quotes: 'He said \"hi\"'."
+              }
+            ],
+            "common_mistakes": [
+              "Forgetting the quotes around text: print(Hello) causes a NameError.",
+              "Writing Print instead of print. Python is case-sensitive.",
+              "Missing the closing bracket or quote."
+            ],
+            "interview_questions": [
+              {
+                "q": "Is Python compiled or interpreted?",
+                "a": "Python source is compiled to bytecode and then run by the interpreter (CPython), so it is usually described as interpreted."
+              },
+              {
+                "q": "What does print() return?",
+                "a": "None. It only shows output as a side effect."
+              }
+            ],
+            "real_world": "Every program, from a banking app to a game, is a list of instructions. print() is also how developers debug by checking values while the program runs."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "variables",
+      "title": "Variables & Data Types",
+      "level": 1,
+      "requires": [
+        "intro"
+      ],
+      "lessons": [
+        {
+          "title": "Variables",
+          "content": {
+            "language": "python",
+            "explanation": "A variable is a named box that stores a value so you can use it later. You create one with =, which means 'store the value on the right into the name on the left'. Use clear lowercase names with underscores, like student_name.",
+            "syntax": "name = value",
+            "examples": [
+              {
+                "title": "Store and print",
+                "code": "age = 20\nname = \"Arun\"\nprint(name, age)",
+                "output": "Arun 20"
+              },
+              {
+                "title": "Update a variable",
+                "code": "score = 10\nscore = score + 5\nprint(score)",
+                "output": "15"
+              }
+            ],
+            "exercises": [
+              {
+                "prompt": "Create variables for your name and age and print a sentence using both.",
+                "hint": "Use print(name, 'is', age)."
+              },
+              {
+                "prompt": "Swap the values of two variables a and b.",
+                "hint": "Python allows a, b = b, a."
+              }
+            ],
+            "common_mistakes": [
+              "Using a variable before creating it (NameError).",
+              "Starting a name with a number, like 1score, which is invalid.",
+              "Thinking = means equal. In Python, == compares and = stores."
+            ],
+            "interview_questions": [
+              {
+                "q": "Are Python variables typed?",
+                "a": "Python is dynamically typed: the value has a type, and the name can be rebound to a value of another type."
+              },
+              {
+                "q": "What is a valid variable name?",
+                "a": "Letters, digits and underscores, not starting with a digit, and not a keyword."
+              }
+            ],
+            "real_world": "Apps store everything in variables: a user's name, a cart total, a game score."
+          }
+        },
+        {
+          "title": "Data types: numbers, text and booleans",
+          "content": {
+            "language": "python",
+            "explanation": "Every value has a type. int is a whole number, float has decimals, str is text, and bool is True or False. Use type() to inspect a value. Arithmetic uses + - * / and // (floor division), % (remainder), ** (power).",
+            "syntax": "type(value)\nint(\"5\")   # convert text to a number",
+            "examples": [
+              {
+                "title": "Types",
+                "code": "print(type(5), type(5.0), type(\"5\"), type(True))",
+                "output": "<class 'int'> <class 'float'> <class 'str'> <class 'bool'>"
+              },
+              {
+                "title": "Operators",
+                "code": "print(7 / 2, 7 // 2, 7 % 2, 2 ** 3)",
+                "output": "3.5 3 1 8"
+              },
+              {
+                "title": "Converting input",
+                "code": "age = int(input(\"Age: \"))\nprint(age + 1)",
+                "output": "(if you type 20) 21"
+              }
+            ],
+            "exercises": [
+              {
+                "prompt": "Ask for two numbers and print their sum.",
+                "hint": "input() returns text, so convert with int() first."
+              },
+              {
+                "prompt": "Convert 250 minutes into hours and remaining minutes.",
+                "hint": "Use // and %."
+              }
+            ],
+            "common_mistakes": [
+              "Adding text and numbers: \"age\" + 5 raises a TypeError.",
+              "Forgetting that input() always returns a string.",
+              "Expecting 0.1 + 0.2 to equal exactly 0.3 (floating point rounding)."
+            ],
+            "interview_questions": [
+              {
+                "q": "Difference between / and //?",
+                "a": "/ always gives a float. // divides and rounds down to a whole number."
+              },
+              {
+                "q": "Why is 0.1 + 0.2 != 0.3?",
+                "a": "Floats are stored in binary, so some decimals cannot be represented exactly."
+              }
+            ],
+            "real_world": "Prices, ages, usernames and login status are all numbers, text or booleans. Wrong types are among the most common real-world bugs."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "conditions",
+      "title": "Making Decisions",
+      "level": 1,
+      "requires": [
+        "variables"
+      ],
+      "lessons": [
+        {
+          "title": "if, elif and else",
+          "content": {
+            "language": "python",
+            "explanation": "Conditions let a program choose what to do. Python checks each condition from the top and runs the first block that is True. Blocks are defined by indentation (4 spaces). Comparison operators: == != < > <= >=. Combine with and, or, not.",
+            "syntax": "if condition:\n    ...\nelif other:\n    ...\nelse:\n    ...",
+            "examples": [
+              {
+                "title": "Grade",
+                "code": "marks = 72\nif marks >= 90:\n    print(\"A\")\nelif marks >= 60:\n    print(\"B\")\nelse:\n    print(\"C\")",
+                "output": "B"
+              },
+              {
+                "title": "Combine conditions",
+                "code": "age = 20\nhas_id = True\nif age >= 18 and has_id:\n    print(\"Allowed\")",
+                "output": "Allowed"
+              }
+            ],
+            "exercises": [
+              {
+                "prompt": "Write a program that prints whether a number is positive, negative or zero.",
+                "hint": "Use if, elif, else."
+              },
+              {
+                "prompt": "Check if a year is a leap year.",
+                "hint": "Divisible by 4, except centuries unless divisible by 400."
+              }
+            ],
+            "common_mistakes": [
+              "Using = instead of == inside an if.",
+              "Forgetting the colon at the end of the if line.",
+              "Inconsistent indentation causes IndentationError."
+            ],
+            "interview_questions": [
+              {
+                "q": "What is the difference between elif and a second if?",
+                "a": "elif is only checked if the earlier conditions were False. Separate ifs are all checked independently."
+              },
+              {
+                "q": "What counts as False in Python?",
+                "a": "False, None, 0, 0.0, empty string, empty list, empty dict and empty set."
+              }
+            ],
+            "real_world": "Login checks, discounts, form validation and game rules are all conditions."
+          }
+        }
+      ]
+    }
+  ]
+}
