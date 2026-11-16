@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
+import ArshaChat from "./ArshaChat";
 
 const link = ({ isActive }: { isActive: boolean }) =>
   `flex items-center rounded-lg px-3 py-2 text-sm font-medium ${
     isActive ? "bg-indigo-600 text-white" : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"}`;
 
-const soon = ["Playground", "Quizzes", "Projects", "Ask ARSHA"];
+const soon = ["Playground", "Quizzes", "Projects", ];
 
 export default function Layout() {
   const [open, setOpen] = useState(false);
@@ -34,6 +35,7 @@ export default function Layout() {
         </header>
         <main className="mx-auto max-w-5xl p-4 sm:p-8"><Outlet /></main>
       </div>
-    </div>
+    <ArshaChat />
+      </div>
   );
 }

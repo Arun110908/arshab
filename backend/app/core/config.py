@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     refresh_token_days: int = 14
     cors_origins: str = "http://localhost:5173"
     cookie_secure: bool = False
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-3.5-flash-lite"
 
     @field_validator("database_url")
     @classmethod
