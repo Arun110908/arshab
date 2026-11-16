@@ -13,7 +13,7 @@ const HISTORY = "arshab_arsha_history_v1";
 const SESSION = "arshab_arsha_interaction_v1";
 const welcome: Message = {
   role: "assistant",
-  text: "Hi! I'm Arsha, your AI learning assistant. Ask me about Python, JavaScript, coding, or debugging!"
+  text: "Hi! I'm Arsha, your AI assistant. Ask me anything in English, Tamil, or Tanglish!"
 };
 
 export default function ArshaChat() {
@@ -91,7 +91,7 @@ export default function ArshaChat() {
           <header className="flex items-center justify-between bg-indigo-600 px-4 py-3 text-white">
             <div>
               <div className="font-semibold">Arsha</div>
-              <div className="text-xs text-indigo-100">AI Learning Assistant</div>
+              <div className="text-xs text-indigo-100">Your All-Purpose AI Assistant</div>
             </div>
             <div className="flex gap-2">
               <button type="button" onClick={clearChat}
