@@ -139,19 +139,34 @@ def arsha_chat(body: ChatIn, request: Request):
         }
     )
 
-    try:
-        with urllib.request.urlopen(req, timeout=90) as response:
-            result = json.loads(response.read().decode())
-        reply = extract_reply(result)
-        if not reply:
-            raise HTTPException(502, "Arsha returned an empty response.")
-        return {
-            "name": "Arsha",
-            "reply": reply,
-            "interaction_id": result.get("id")
-        }
-    except urllib.error.HTTPError as e:
-        print("Gemini HTTP error:", e.code, e.read().decode(errors="replace")[:500])
-        raise HTTPException(502, "Arsha AI service is temporarily unavailable.")
-    except (urllib.error.URLError, TimeoutError):
-        raise HTTPException(502, "Could not connect to the AI service.")
+    retryable_statuses = {429, 500, 502, 503, 504}
+
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=45) as response:
+                result = json.loads(response.read().decode())
+
+            reply = extract_reply(result)
+            if not reply:
+                raise HTTPException(502, "Arsha returned an empty response.")
+
+            return {
+                "name": "Arsha",
+                "reply": reply,
+                "interaction_id": result.get("id")
+            }
+
+        except urllib.error.HTTPError as e:
+            error_body = e.read().decode(errors="replace")[:500]
+            print("Gemini HTTP error:", e.code, error_body)
+            if e.code not in retryable_statuses or attempt == 2:
+                raise HTTPException(502, "Arsha AI service is temporarily unavailable.")
+
+        except (urllib.error.URLError, TimeoutError) as e:
+            print("Gemini connection error:", str(e)[:300])
+            if attempt == 2:
+                raise HTTPException(502, "Could not connect to the AI service.")
+
+        delay = 2 ** attempt
+        print(f"Retrying Gemini request in {delay} seconds...")
+        time.sleep(delay)
